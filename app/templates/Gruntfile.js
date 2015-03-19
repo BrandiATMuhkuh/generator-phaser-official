@@ -12,11 +12,11 @@ var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
 var mountFolder = function (connect, dir) {
   return connect.static(require('path').resolve(dir));
 };
- 
+
 module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
- 
+
   grunt.initConfig({
     watch: {
       scripts: {
@@ -29,6 +29,12 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         tasks: ['build']
+      },
+      server: {
+        files: ['.rebooted'],
+        options: {
+          livereload: true
+        }
       }
     },
     connect: {
@@ -70,11 +76,54 @@ module.exports = function (grunt) {
         src: ['game/main.js'],
         dest: 'dist/js/game.js'
       }
+    },
+    concurrent: {
+      dev: {
+        tasks: ['nodemon'],
+        limit: 5,
+        options: {
+          logConcurrentOutput: true
+        }
+      }
+    },
+    nodemon: {
+      dev: {
+        script: 'server/index.js',
+        options: {
+          nodeArgs: ['--debug'],
+          env: {
+            PORT: '5455'
+          },
+          // omit this property if you aren't serving HTML files and
+          // don't want to open a browser tab on start
+          callback: function (nodemon) {
+            nodemon.on('log', function (event) {
+              console.log(event.colour);
+            });
+
+            // opens browser on initial server start
+            nodemon.on('config:update', function () {
+              // Delay before server listens on port
+              setTimeout(function() {
+                //require('open')('http://localhost:5455');
+              }, 1000);
+            });
+
+            // refreshes browser when server reboots
+            nodemon.on('restart', function () {
+              // Delay before server listens on port
+              setTimeout(function() {
+                require('fs').writeFileSync('.rebooted', 'rebooted');
+              }, 1000);
+            });
+          }
+        }
+      }
     }
   });
-  
+
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
-  grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
+  grunt.registerTask('serve', [ 'build', 'connect:livereload', 'open', 'concurrent:dev', 'watch']);
   grunt.registerTask('default', ['serve']);
   grunt.registerTask('prod', ['build', 'copy']);
 
