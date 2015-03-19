@@ -33,7 +33,8 @@ var PhaserGenerator = yeoman.generators.Base.extend({
       {
         name: 'phaserVersion',
         message: 'Which Phaser version would you like to use?',
-        default: '2.0.4'
+
+        default: '2.2.2'
       },
       {
         name: 'gameWidth',
@@ -57,12 +58,12 @@ var PhaserGenerator = yeoman.generators.Base.extend({
     }.bind(this));
   },
 
-  
-  
+
+
   app: function () {
     // base files
     this.template('Gruntfile.js','Gruntfile.js');
-    
+
     this.template('css/_styles.css', 'css/styles.css');
     this.template('_bower.json', 'bower.json');
     this.template('_config.json','config.json');
@@ -79,7 +80,7 @@ var PhaserGenerator = yeoman.generators.Base.extend({
     this.copy('assets/preloader.gif');
     this.copy('assets/yeoman-logo.png');
     this.copy('templates/_main.js.tpl');
-    
+
   },
   createBootstrapper: function() {
     var stateFiles = this.expand('game/states/*.js');
@@ -97,7 +98,7 @@ var PhaserGenerator = yeoman.generators.Base.extend({
   runtime: function() {
     this.copy('bowerrc', '.bowerrc');
     this.copy('gitignore', '.gitignore');
-    
+
 
   },
   projectfiles: function () {
