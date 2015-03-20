@@ -64,27 +64,27 @@ var PhaserGenerator = yeoman.generators.Base.extend({
     // base files
     this.template('Gruntfile.js','Gruntfile.js');
 
-    this.template('css/_styles.css', 'css/styles.css');
+    this.template('client/css/_styles.css', 'client/css/styles.css');
     this.template('_bower.json', 'bower.json');
     this.template('_config.json','config.json');
     this.template('_package.json','package.json');
-    this.template('_index.html', 'index.html');
+    this.template('client/_index.html', 'client/index.html');
     this.template('server/_index.js', 'server/index.js');
 
 
     // game files
-    this.copy('game/states/boot.js');
-    this.copy('game/states/preload.js');
-    this.copy('game/states/menu.js');
-    this.copy('game/states/play.js');
-    this.copy('game/states/gameover.js');
-    this.copy('assets/preloader.gif');
-    this.copy('assets/yeoman-logo.png');
+    this.copy('client/game/states/boot.js');
+    this.copy('client/game/states/preload.js');
+    this.copy('client/game/states/menu.js');
+    this.copy('client/game/states/play.js');
+    this.copy('client/game/states/gameover.js');
+    this.copy('client/assets/preloader.gif');
+    this.copy('client/assets/yeoman-logo.png');
     this.copy('templates/_main.js.tpl');
 
   },
   createBootstrapper: function() {
-    var stateFiles = this.expand('game/states/*.js');
+    var stateFiles = this.expand('client/game/states/*.js');
     this.gameStates = [];
     var statePattern = new RegExp(/(\w+).js$/);
     stateFiles.forEach(function(file) {
@@ -94,7 +94,7 @@ var PhaserGenerator = yeoman.generators.Base.extend({
       }
     }, this);
 
-    this.template('game/_main.js','game/main.js');
+    this.template('client/game/_main.js','client/game/main.js');
   },
   runtime: function() {
     this.copy('bowerrc', '.bowerrc');

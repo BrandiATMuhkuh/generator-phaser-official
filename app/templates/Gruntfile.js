@@ -21,8 +21,8 @@ module.exports = function (grunt) {
     watch: {
       scripts: {
         files: [
-            'game/**/*.js',
-            '!game/main.js'
+            'client/game/**/*.js',
+            '!client/game/main.js'
         ],
         options: {
           spawn: false,
@@ -63,17 +63,17 @@ module.exports = function (grunt) {
       dist: {
         files: [
           // includes files within path and its sub-directories
-          { expand: true, src: ['assets/**'], dest: 'dist/' },
-          { expand: true, flatten: true, src: ['game/plugins/*.js'], dest: 'dist/js/plugins/' },
+          { expand: true, src: ['client/assets/**'], dest: 'dist/' },
+          { expand: true, flatten: true, src: ['client/game/plugins/*.js'], dest: 'dist/js/plugins/' },
           { expand: true, flatten: true, src: ['bower_components/**/build/*.js','bower_components/socket.io-client/socket.io.js'], dest: 'dist/js/' },
-          { expand: true, src: ['css/**'], dest: 'dist/' },
-          { expand: true, src: ['index.html'], dest: 'dist/' }
+          { expand: true, src: ['client/css/**'], dest: 'dist/' },
+          { expand: true, src: ['client/index.html'], dest: 'dist/' }
         ]
       }
     },
     browserify: {
       build: {
-        src: ['game/main.js'],
+        src: ['client/game/main.js'],
         dest: 'dist/js/game.js'
       }
     },
@@ -128,7 +128,7 @@ module.exports = function (grunt) {
   grunt.registerTask('prod', ['build', 'copy']);
 
   grunt.registerTask('buildBootstrapper', 'builds the bootstrapper file correctly', function() {
-    var stateFiles = grunt.file.expand('game/states/*.js');
+    var stateFiles = grunt.file.expand('client/game/states/*.js');
     var gameStates = [];
     var statePattern = new RegExp(/(\w+).js$/);
     stateFiles.forEach(function(file) {
@@ -141,6 +141,6 @@ module.exports = function (grunt) {
     console.log(config);
     var bootstrapper = grunt.file.read('templates/_main.js.tpl');
     bootstrapper = grunt.template.process(bootstrapper,{data: config});
-    grunt.file.write('game/main.js', bootstrapper);
+    grunt.file.write('client/game/main.js', bootstrapper);
   });
 };
