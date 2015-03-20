@@ -63,11 +63,11 @@ module.exports = function (grunt) {
       dist: {
         files: [
           // includes files within path and its sub-directories
-          { expand: true, src: ['client/assets/**'], dest: 'dist/' },
-          { expand: true, flatten: true, src: ['client/game/plugins/*.js'], dest: 'dist/js/plugins/' },
+          { expand: true, cwd: 'client/', src: ['assets/**'], dest: 'dist/' },
+          { expand: true, cwd: 'client/', flatten: true, src: ['game/plugins/*.js'], dest: 'dist/js/plugins/' },
           { expand: true, flatten: true, src: ['bower_components/**/build/*.js','bower_components/socket.io-client/socket.io.js'], dest: 'dist/js/' },
-          { expand: true, src: ['client/css/**'], dest: 'dist/' },
-          { expand: true, src: ['client/index.html'], dest: 'dist/' }
+          { expand: true, cwd: 'client/', src: ['css/**'], dest: 'dist/' },
+          { expand: true, cwd: 'client/', src: ['index.html'], dest: 'dist/' }
         ]
       }
     },
@@ -123,7 +123,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
-  grunt.registerTask('serve', [ 'build', 'connect:livereload', 'open', 'concurrent:dev', 'watch']);
+  grunt.registerTask('serve', [ 'build', 'connect:livereload',  'concurrent:dev', 'watch']); //'open',
   grunt.registerTask('default', ['serve']);
   grunt.registerTask('prod', ['build', 'copy']);
 
