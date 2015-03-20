@@ -1,7 +1,7 @@
 # merged - generator-phaser-official
 Since the offical repos is not excepting any pull requests I did that here. I acceped all pull requests (3) in the official repo.
 
-To use this code as your generator run the following code `npm install https://github.com/BrandiATMuhkuh/generator-phaser-official/archive/[VERSION].tar.gz`
+To use this code as your generator run the following code `npm install -g BrandiATMuhkuh/generator-phaser-official`
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -29,7 +29,7 @@ Yeoman travels light. He didn't pack any generators when he moved in. You can th
 To install generator-phaser from npm, run:
 
 ```
-$ npm install https://github.com/BrandiATMuhkuh/generator-phaser-official/archive/[VERSION].tar.gz
+$ npm install pm install -g BrandiATMuhkuh/generator-phaser-official
 ```
 
 Finally, initiate the generator:

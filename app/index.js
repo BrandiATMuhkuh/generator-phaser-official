@@ -69,6 +69,7 @@ var PhaserGenerator = yeoman.generators.Base.extend({
     this.template('_config.json','config.json');
     this.template('_package.json','package.json');
     this.template('_index.html', 'index.html');
+    this.template('server/_index.js', 'server/index.js');
 
 
     // game files
