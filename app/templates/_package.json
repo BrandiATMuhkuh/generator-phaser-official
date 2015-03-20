@@ -18,6 +18,8 @@
     "matchdep": "latest",
     "moment": "latest",
     "node-inspector": "latest",
+    "nodejs-websocket": "latest",
+    "socket.io": "latest",
     "underscore": "latest",
     "underscore.string": "latest"
   },
